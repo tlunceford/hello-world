@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Product Marketing Jobs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🤖 AI Product Marketing Jobs</h1>
+            <p class="tagline">Find your next role in AI product marketing</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Search by job title, company, or keyword...">
+            <div class="filters">
+                <select id="locationFilter">
+                    <option value="">All Locations</option>
+                    <option value="Remote">Remote</option>
+                    <option value="San Francisco">San Francisco</option>
+                    <option value="New York">New York</option>
+                    <option value="Seattle">Seattle</option>
+                    <option value="London">London</option>
+                </select>
+                <select id="levelFilter">
+                    <option value="">All Levels</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Mid-Level">Mid-Level</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Director">Director</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="jobCount" class="job-count">Showing <span id="count">0</span> jobs</div>
+
+        <div id="jobListings" class="job-listings">
+            <!-- Jobs will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AI Product Marketing Jobs. Built for marketers shaping the future of AI.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
