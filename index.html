@@ -16,7 +16,10 @@
 
     <div class="container">
         <div class="search-section">
-            <input type="text" id="searchInput" placeholder="Search by job title, company, or keyword...">
+            <div class="header-controls">
+                <input type="text" id="searchInput" placeholder="Search by job title, company, or keyword...">
+                <button id="refreshBtn" class="refresh-btn" title="Refresh job listings">🔄 Refresh</button>
+            </div>
             <div class="filters">
                 <select id="locationFilter">
                     <option value="">All Locations</option>
@@ -34,7 +37,15 @@
                     <option value="Director">Director</option>
                 </select>
             </div>
+            <div id="lastUpdated" class="last-updated"></div>
         </div>
+
+        <div id="loadingMessage" class="loading-message" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading live job listings...</p>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
 
         <div id="jobCount" class="job-count">Showing <span id="count">0</span> jobs</div>
 
