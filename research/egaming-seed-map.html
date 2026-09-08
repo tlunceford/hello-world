@@ -1,0 +1,569 @@
+<title>eGaming Seed Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+<style>
+  :root{
+    --ground:#EDF1EF;
+    --surface:#FFFFFF;
+    --surface-2:#F5F8F6;
+    --ink:#0E1D18;
+    --ink-2:#3D4F49;
+    --ink-3:#6B7C76;
+    --rule:#D3DCD8;
+    --rule-strong:#B6C3BD;
+    --accent:#0D6549;
+    --accent-ink:#0D6549;
+    --accent-wash:#DCEBE4;
+    --warn:#8A5A06;
+    --warn-wash:#F6E8CF;
+    --quiet:#5E6E68;
+    --quiet-wash:#E3E8E6;
+    --shadow:0 1px 2px rgba(14,29,24,.06), 0 8px 24px -16px rgba(14,29,24,.35);
+    --star:#B07500;
+    --on-accent:#FFFFFF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C1411;
+      --surface:#131E1A;
+      --surface-2:#18251F;
+      --ink:#E7EFEA;
+      --ink-2:#A8B8B1;
+      --ink-3:#7F918A;
+      --rule:#243129;
+      --rule-strong:#33453B;
+      --accent:#57D3A5;
+      --accent-ink:#7FE0BB;
+      --accent-wash:#12332A;
+      --warn:#E5B663;
+      --warn-wash:#33280F;
+      --quiet:#93A49D;
+      --quiet-wash:#1E2A25;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.9);
+      --star:#E5B663;
+      --on-accent:#08130F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C1411;
+    --surface:#131E1A;
+    --surface-2:#18251F;
+    --ink:#E7EFEA;
+    --ink-2:#A8B8B1;
+    --ink-3:#7F918A;
+    --rule:#243129;
+    --rule-strong:#33453B;
+    --accent:#57D3A5;
+    --accent-ink:#7FE0BB;
+    --accent-wash:#12332A;
+    --warn:#E5B663;
+    --warn-wash:#33280F;
+    --quiet:#93A49D;
+    --quiet-wash:#1E2A25;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.9);
+    --star:#E5B663;
+    --on-accent:#08130F;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
+  a{color:var(--accent-ink)}
+  h1,h2,h3{text-wrap:balance;margin:0}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    border-bottom:1px solid var(--rule);
+    padding:44px 0 26px;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  h1{
+    font-family:Newsreader,Georgia,serif;
+    font-weight:500;
+    font-size:clamp(34px,5.4vw,52px);
+    line-height:1.06;
+    letter-spacing:-.015em;
+  }
+  h1 em{font-style:italic;color:var(--accent-ink)}
+  .standfirst{
+    font-family:Newsreader,Georgia,serif;
+    font-size:19px;line-height:1.5;color:var(--ink-2);
+    max-width:62ch;
+  }
+  .facts{
+    display:flex;flex-wrap:wrap;gap:0;
+    border-top:1px solid var(--rule);
+    margin-top:4px;
+  }
+  .fact{
+    padding:14px 26px 0 0;margin-right:26px;
+    border-right:1px solid var(--rule);
+  }
+  .fact:last-child{border-right:0}
+  .fact b{
+    display:block;
+    font-family:"IBM Plex Mono",monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:26px;font-weight:600;line-height:1.1;color:var(--ink);
+  }
+  .fact span{font-size:12px;color:var(--ink-3);letter-spacing:.02em}
+
+  /* ---------- sections ---------- */
+  section{padding-top:44px}
+  h2{
+    font-family:"IBM Plex Sans",sans-serif;
+    font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-ink);
+    padding-bottom:10px;border-bottom:1px solid var(--rule-strong);
+    margin-bottom:22px;
+  }
+  h3{font-size:17px;font-weight:600;letter-spacing:-.01em}
+  p{margin:0 0 12px;max-width:68ch;color:var(--ink-2)}
+  p strong{color:var(--ink);font-weight:600}
+
+  /* ---------- lanes ---------- */
+  .lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  .lane{background:var(--surface);padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px}
+  .lane .key{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+    letter-spacing:.1em;color:var(--accent-ink);
+  }
+  .lane h3{font-size:15px}
+  .lane p{font-size:13.5px;margin:0;color:var(--ink-2)}
+  .lane .who{font-size:12.5px;color:var(--ink-3);border-top:1px dotted var(--rule-strong);padding-top:8px;margin-top:auto}
+
+  /* ---------- callout ---------- */
+  .callout{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--warn);
+    padding:18px 20px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .callout h3{font-size:15px}
+  .callout p{margin:0;font-size:14px}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{
+    position:sticky;top:0;z-index:5;
+    background:var(--ground);
+    padding:12px 0;
+    border-bottom:1px solid var(--rule);
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  }
+  .search{
+    flex:1 1 220px;min-width:180px;
+    background:var(--surface);color:var(--ink);
+    border:1px solid var(--rule-strong);border-radius:2px;
+    padding:8px 11px;font:inherit;font-size:14px;
+  }
+  .search::placeholder{color:var(--ink-3)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.04em;
+    background:var(--surface);color:var(--ink-2);
+    border:1px solid var(--rule-strong);border-radius:2px;
+    padding:6px 10px;cursor:pointer;
+  }
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  .count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+  button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ---------- firm rows ---------- */
+  .rows{border:1px solid var(--rule);border-top:0;background:var(--rule);display:flex;flex-direction:column;gap:1px}
+  .firm{
+    background:var(--surface);
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) minmax(0,1.5fr) 34px;
+    gap:16px;align-items:start;
+    padding:15px 14px 15px 18px;
+  }
+  .firm:hover{background:var(--surface-2)}
+  .firm .name{font-size:15.5px;font-weight:600;letter-spacing:-.01em;display:block}
+  .firm .name a{text-decoration:none;color:var(--ink);border-bottom:1px solid var(--rule-strong)}
+  .firm .name a:hover{color:var(--accent-ink);border-color:var(--accent)}
+  .firm .hq{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);
+    display:block;margin-top:3px;
+  }
+  .firm .stage{font-size:13px;color:var(--ink-2)}
+  .firm .check{
+    font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+    font-size:12.5px;color:var(--ink);display:block;margin-top:3px;
+  }
+  .firm .why{font-size:13.5px;color:var(--ink-2)}
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+    padding:2px 6px;border-radius:2px;white-space:nowrap;
+  }
+  .tag.lane{background:var(--accent-wash);color:var(--accent-ink)}
+  .tag.native{background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+  .tag.ask{background:var(--warn-wash);color:var(--warn);font-weight:600}
+  .tag.unver{background:var(--quiet-wash);color:var(--quiet)}
+  .star{
+    background:none;border:0;cursor:pointer;padding:2px;line-height:1;
+    color:var(--ink-3);font-size:17px;justify-self:end;
+  }
+  .star[aria-pressed="true"]{color:var(--star)}
+  .empty{background:var(--surface);padding:28px 18px;color:var(--ink-3);font-size:14px}
+
+  /* ---------- prose blocks ---------- */
+  .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .panel{background:var(--surface);border:1px solid var(--rule);padding:20px 22px}
+  .panel h3{margin-bottom:10px}
+  .kv{display:flex;flex-direction:column;gap:0;margin:4px 0 12px}
+  .kv div{display:flex;gap:12px;padding:7px 0;border-bottom:1px dotted var(--rule-strong);font-size:13.5px}
+  .kv div:last-child{border-bottom:0}
+  .kv dt{flex:0 0 108px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding-top:2px}
+  .kv dd{margin:0;color:var(--ink-2)}
+  .kv dd b{color:var(--ink)}
+
+  ul.metrics{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  ul.metrics li{background:var(--surface);padding:14px 16px;font-size:13.5px;color:var(--ink-2)}
+  ul.metrics b{display:block;color:var(--ink);font-size:14px;font-weight:600;margin-bottom:2px}
+
+  ol.seq{list-style:none;counter-reset:s;padding:0;margin:0;display:flex;flex-direction:column}
+  ol.seq li{
+    counter-increment:s;
+    display:grid;grid-template-columns:64px 1fr;gap:16px;
+    padding:14px 0;border-bottom:1px solid var(--rule);
+    font-size:14px;color:var(--ink-2);
+  }
+  ol.seq li:last-child{border-bottom:0}
+  ol.seq li::before{
+    content:"WK " counter(s);
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
+    color:var(--accent-ink);padding-top:2px;
+  }
+  ol.seq b{color:var(--ink)}
+
+  .strategics{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .strategics span{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;
+    border:1px solid var(--rule-strong);padding:5px 9px;color:var(--ink-2);background:var(--surface);
+  }
+
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-3)}
+  footer p{font-size:12.5px;color:var(--ink-3);max-width:none}
+  footer a{color:var(--ink-3)}
+  footer a:hover{color:var(--accent-ink)}
+
+  @media (max-width:720px){
+    .firm{grid-template-columns:1fr 32px;gap:6px}
+    .firm .why{grid-column:1 / -1}
+    .firm .stage{grid-column:1 / -1}
+    .fact{padding-right:18px;margin-right:18px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Fundraising map · updated September 2026</div>
+    <h1>Who actually writes the <em>first check</em> into consumer casino</h1>
+    <p class="standfirst">A working target list of seed investors for B2C eGaming — real-money casino, sweepstakes and social casino, skill-based cash games, betting and prediction markets, and the casino-adjacent free-to-play studios next door.</p>
+    <div class="facts">
+      <div class="fact"><b id="fCount">37</b><span>investors mapped</span></div>
+      <div class="fact"><b>15</b><span>gambling-native, no LP problem</span></div>
+      <div class="fact"><b>3</b><span>distinct fundraising lanes</span></div>
+      <div class="fact"><b>$1M</b><span>a16z SPEEDRUN, for 10% + follow-on</span></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Pick your lane before you pick your list</h2>
+    <p>These are three different fundraising markets with barely overlapping investor sets. Being precise about which one you're in is the single biggest determinant of hit rate — the rows below are tagged accordingly.</p>
+    <div class="lanes">
+      <div class="lane">
+        <div class="key">LANE A</div>
+        <h3>Regulated real-money</h3>
+        <p>Licensed online casino, sportsbook, lottery, and the B2B stack underneath them.</p>
+        <div class="who">Funded by: gambling-native funds and strategics. Effectively nobody else.</div>
+      </div>
+      <div class="lane">
+        <div class="key">LANE B</div>
+        <h3>Sweepstakes, social casino, skill-cash</h3>
+        <p>Dual-currency sweeps, social slots, skill games for cash prizes. Where the 2026 deal energy is.</p>
+        <div class="who">Funded by: a thin overlap of gambling-native, games-native and risk-tolerant consumer funds.</div>
+      </div>
+      <div class="lane">
+        <div class="key">LANE C</div>
+        <h3>F2P with casino mechanics</h3>
+        <p>Casual and social slots, poker, bingo — casino-themed but no cash out.</p>
+        <div class="who">Funded by: the games-native seed funds. The deepest and most accessible pool.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The gate is the LP agreement, not the thesis</h2>
+    <div class="callout">
+      <h3>Ask about vice clauses in the first email</h3>
+      <p>Pension funds, endowments and sovereign wealth funds have historically barred gambling exposure in their LP agreements. VC firms rarely carry their own vice clause — their limited partners do. Many LPs dropped <em>sports betting</em> from those clauses after PASPA fell; casino is loosening more slowly. A partner can love the deck and still be structurally unable to invest, so ask early: <strong>"Do you have LP restrictions on real-money gaming?"</strong> It saves a month per firm.</p>
+      <p>Second-order effect worth planning around: for tier-one generalists in 2026, the phrases "prediction markets," "competitive entertainment" and "skill-based cash gaming" clear investment committees that "online casino" does not. Use the accurate description of what you're building — but know which door each one opens.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The list</h2>
+    <div class="toolbar">
+      <input id="q" class="search" type="search" placeholder="Search firm, city, partner, portfolio…" aria-label="Search investors">
+      <div class="chips" id="catChips" role="group" aria-label="Filter by investor type"></div>
+      <div class="chips" id="laneChips" role="group" aria-label="Filter by lane"></div>
+      <button class="chip" id="starOnly" aria-pressed="false">★ shortlist</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="rows" id="rows"></div>
+  </section>
+
+  <section>
+    <h2>The two names you asked about</h2>
+    <div class="split">
+      <div class="panel">
+        <h3>a16z SPEEDRUN</h3>
+        <div class="kv">
+          <div><dt>Terms</dt><dd><b>$500K for 10%</b> on a SAFE, plus <b>$500K</b> into your next round within 18 months</dd></div>
+          <div><dt>Format</dt><dd>12 weeks, in person, Los Angeles</dd></div>
+          <div><dt>Cadence</dt><dd>SR007 ran late July–October 2026; applications closed 17 May. Watch for SR008.</dd></div>
+          <div><dt>Scale</dt><dd>$180M+ deployed into 150+ companies</dd></div>
+          <div><dt>People</dt><dd>Andrew Chen and Jonathan Lai (GPs), Troy Kirwin (investing partner), Joshua Lu (GM)</dd></div>
+        </div>
+        <p><strong>The nuance that matters:</strong> SPEEDRUN grew out of the a16z GAMES fund and the 2023 debut cohort was 56% game studios. By SR006 in spring 2026, 87% of the 60 companies carried an AI tag and more than half were B2B. The program has drifted hard toward AI. A consumer casino product is now a stretch fit; a gaming-adjacent AI or infrastructure story is a strong one.</p>
+      </div>
+      <div class="panel">
+        <h3>Robin Guo — status correction</h3>
+        <p><strong>He left a16z in November 2025</strong> to found a company (stealth, consumer health — he's a biomedical engineer, motivated by diabetes and Alzheimer's in his family). He is not deploying fund capital today.</p>
+        <p>From late 2021 he was a consumer investor at a16z, helped build GAMES Fund One, and was on the founding team of SPEEDRUN. Before that: product at TikTok, Discord and Riot.</p>
+        <p><strong>How to use him:</strong> as an angel, advisor and warm-intro node — not a fund target. He writes <em>The Bird's Nest</em> (25K+ subscribers); his posts "The State of Game Studio Financing" and "Three Years of Investing in Games" are the best public primer on how studios actually get funded, and he has offered paid consulting on consumer and growth. For a16z itself, route to Kirwin, Lu or Lai.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What they will underwrite</h2>
+    <p>Sector investors ask for these by name. Have them in the deck, not in the follow-up.</p>
+    <ul class="metrics">
+      <li><b>Payer conversion</b>Sweeps and social casino investors index on this above almost everything else.</li>
+      <li><b>Retention, split two ways</b>D1 / D7 / D30 overall, and payer retention reported separately.</li>
+      <li><b>ARPDAU and ARPPU</b>Plus the whale curve — what share of revenue comes from your top 1%.</li>
+      <li><b>LTV : CAC and payback window</b>Sub-six-month payback is the bar for anything UA-financed.</li>
+      <li><b>Contribution margin</b>Against public comps. This is the number that made 2026 sweepstakes economics attractive.</li>
+      <li><b>Regulatory posture</b>Licensing, geolocation stack, KYC/AML vendor, state-by-state exposure, and your plan for an adverse AG action.</li>
+      <li><b>Responsible gaming controls</b>Now a diligence line item, not a nice-to-have.</li>
+      <li><b>Payments redundancy</b>Processor mix and decline rates. Payment fragility kills more RMG startups than product does.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Non-dilutive capital is often the better instrument</h2>
+    <p>Consumer casino is user-acquisition-bound, not R&amp;D-bound. Selling 20% of the company to buy installs is the most expensive way to finance a paid-marketing engine. <strong>Sharp Alpha's $150M UA facility</strong> ($4M–$30M+, growth stage) is the sector-native option; mobile-gaming UA financiers such as Pollen VC and Braavo cover the smaller end. Model the effective APR against your payback window before you compare it to an equity round.</p>
+  </section>
+
+  <section>
+    <h2>Strategics and operator angels</h2>
+    <p>Often the real seed round for a consumer casino product, and almost always the eventual acquirer. Slower, but they carry distribution and licensing.</p>
+    <div class="strategics">
+      <span>FanDuel / Flutter</span><span>DraftKings</span><span>Light &amp; Wonder</span><span>Aristocrat · Pixel United</span><span>SEGA Sammy</span><span>Playtika</span><span>MGM · Caesars · Boyd digital</span><span>Kindred Futures</span><span>Betsson</span><span>Soft2Bet</span><span>Yolo Group</span><span>IC360</span>
+    </div>
+    <p style="margin-top:14px">The angel layer under them — founders and early operators from Playtika, Moon Active, SciPlay, Product Madness, Huuuge, VGW, DraftKings, FanDuel, PrizePicks and Underdog — is usually faster, better informed and more useful than institutional seed money at this stage. It also sidesteps the vice-clause problem entirely.</p>
+  </section>
+
+  <section>
+    <h2>Suggested sequence</h2>
+    <ol class="seq">
+      <li><b>Sector natives first.</b> Sharp Alpha, Velo, Yolo, Bettor Capital, Acies. They move fastest and their terms set your price. In parallel, operator angels — the cheapest credibility you can buy, and often what unlocks the funds.</li>
+      <li><b>Games-native funds</b> on the lane-C framing: BITKRAFT, Makers Fund, Play Ventures, LVP, Sisu, Konvoy, The Games Fund, F4.</li>
+      <li><b>Sports and betting-adjacent:</b> SeventySix, Courtside, KB Partners. Good for consumer brands with a sports surface.</li>
+      <li><b>Generalists</b>, only with the vice-clause question asked upfront and a non-gambling framing that is still true. Then strategics for distribution — never as your only path, because they move on their own timeline.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <p><strong>Sources.</strong> Verified September 2026 against primary and trade sources: <a href="https://www.sharpalpha.vc/">Sharp Alpha</a>, <a href="https://www.bettorcapital.com/portfolio/">Bettor Capital</a>, <a href="https://www.velopartners.co.uk/portfolio">Velo Partners</a>, <a href="https://www.yogonet.com/international/news/2025/06/23/108813-yolo-investments-closes-115-million-fund-ii-eyes-10-new-investments-in-fintech-and-gaming">Yolo Fund II close</a>, <a href="https://a16z.com/applications-for-a16z-speedrun-sr007-are-now-open/">a16z SPEEDRUN SR007</a>, <a href="https://www.robin-guo.com/p/i-left-a16z-to-go-build">Robin Guo's departure post</a>, <a href="https://venturebeat.com/games/sharp-alpha-fund-ii-25m-gaming-sports-media/">GamesBeat on Sharp Alpha Fund II</a>, <a href="https://techcrunch.com/2021/10/19/sec-form-d-filing-reveals-new-50m-sisu-game-ventures-fund-aimed-at-gaming-startups">TechCrunch on Sisu</a>, <a href="https://willventures.substack.com/p/the-vc-backed-casino">Will Ventures on vice clauses</a>, <a href="https://pitchbook.com/news/articles/top-gaming-vc-investors-list">PitchBook's gaming investor ranking</a>.</p>
+    <p>Rows marked <span class="tag unver">unverified</span> come from general industry knowledge rather than a source checked this month — confirm the team and mandate on the firm's own site before you build them into a sequence. Team and thesis churn fast in this sector.</p>
+  </footer>
+</div>
+
+<script>
+const FIRMS = [
+ {n:"Sharp Alpha Advisors",hq:"New York · founded 2019",st:"Seed & Series A",ck:"$1M–$10M + $4–30M UA",lanes:["A","B"],cat:"rmg",ask:"native",
+  w:"Best all-round fit for a consumer brand: Lloyd Danzig's fund backs \"competitive entertainment\" builders and then finances their user acquisition non-dilutively. ProphetX, Triumph Labs, Jackpot.com, Players' Lounge. Exits: Betcha → Vivid Seats.",u:"https://www.sharpalpha.vc/"},
+ {n:"Bettor Capital",hq:"New York · founded 2020",st:"Seed / early",ck:"—",lanes:["A"],cat:"rmg",ask:"native",
+  w:"Deepest RMG rolodex, but the portfolio is overwhelmingly picks-and-shovels — Boom, Xpoint, Future Anthem, Swish. Exits to FanDuel, IC360 and SEGA Sammy. If you're B2C, lead with your tech, not your brand.",u:"https://www.bettorcapital.com/"},
+ {n:"Velo Partners",hq:"London · founded 2011",st:"Seed & Series A",ck:"—",lanes:["A","B","C"],cat:"rmg",ask:"native",
+  w:"Evan Hoff's fund is the rare mandate naming real-money, social and B2B in the same breath. 43 companies, 2 unicorns, 8 acquisitions — Junglee Games, Tripledot, Moon Active. Understands slot-studio economics.",u:"https://www.velopartners.co.uk/"},
+ {n:"Yolo Investments",hq:"Tallinn / Guernsey",st:"Late seed & Series A",ck:"Fund II ≈ €100M",lanes:["A","B"],cat:"rmg",ask:"native",
+  w:"Tim Heath's operator capital: €600M+ AUM, 100+ investments, Fund II closed June 2025 with Heath personally in for €50M. Dabble, ParlayPlay, BoomFi. Fast and comfortable with crypto rails.",u:"https://yolo.io/"},
+ {n:"Acies Investments",hq:"Manhattan Beach · founded 2020",st:"Early stage",ck:"—",lanes:["A"],cat:"rmg",ask:"native",unv:1,
+  w:"Sports wagering, iGaming, sports tech and esports, with a founder network running straight into Las Vegas operators."},
+ {n:"SeventySix Capital",hq:"Philadelphia",st:"Seed",ck:"—",lanes:["A"],cat:"rmg",ask:"native",
+  w:"Wayne Kimmel's sports betting, esports and sports tech fund. Unusually hands-on with sales, BD and PR — useful if you need distribution more than money.",u:"https://www.seventysixcapital.com/portfolio"},
+ {n:"Courtside Ventures",hq:"New York",st:"Seed / early",ck:"Fund IV ≈ $100M target",lanes:["A","C"],cat:"rmg",ask:"native",
+  w:"Sports, tech, media, lifestyle and gaming. Michael Jordan among the LPs. Backed Xpoint, so comfortable with betting infrastructure and the compliance surface around it."},
+ {n:"KB Partners",hq:"Chicago",st:"Pre-seed / seed",ck:"First institutional check",lanes:["A"],cat:"rmg",ask:"native",
+  w:"Positions itself explicitly as the first institutional check for seed-stage sports founders. Betting adjacency rather than betting core."},
+ {n:"Soft2Bet Invest",hq:"Malta",st:"Strategic / early",ck:"€53M fund",lanes:["A","B"],cat:"rmg",ask:"native",
+  w:"Operator-backed fund built to nurture iGaming and casual gaming startups. Platform distribution comes attached — read the commercial terms as carefully as the equity ones."},
+ {n:"VenturePapa",hq:"Europe",st:"Early stage",ck:"—",lanes:["A"],cat:"rmg",ask:"native",unv:1,
+  w:"Early-stage iGaming specialist across online casino, esports betting and fintech integrations. Smaller and less institutional — diligence the fund itself."},
+ {n:"Raine Ventures",hq:"New York",st:"Seed / Series A",ck:"—",lanes:["A"],cat:"rmg",ask:"native",unv:1,
+  w:"Early-stage arm of The Raine Group's gaming, media and sports franchise. Skews later than a true first check."},
+ {n:"Galaxy Interactive",hq:"New York",st:"Early / growth",ck:"—",lanes:["B","C"],cat:"rmg",ask:"native",
+  w:"On the Pocket7Games / AviaGames cap table — real precedent in skill-based cash gaming — plus deep comfort with crypto rails. Larger than a pure seed fund."},
+ {n:"Washington Harbour Partners",hq:"Washington DC",st:"Early / growth",ck:"—",lanes:["B"],cat:"rmg",ask:"native",
+  w:"Also backed Pocket7Games. Rare institutional investor with real-money skill-gaming precedent on the books."},
+ {n:"Signia Venture Partners",hq:"Bay Area",st:"Seed",ck:"—",lanes:["A","C"],cat:"rmg",ask:"ask",unv:1,
+  w:"Long cited as one of the few Valley generalists that would touch iGaming. Historical data point — confirm the current mandate before you spend a warm intro."},
+ {n:"Bullpen Capital",hq:"San Francisco",st:"Seed / post-seed",ck:"—",lanes:["A","B"],cat:"rmg",ask:"ask",unv:1,
+  w:"Generalist with an established appetite for consumer categories other funds find unfashionable, betting and fantasy included."},
+
+ {n:"BITKRAFT Ventures",hq:"Denver / Berlin",st:"Seed → Series B",ck:"~$1.05B AUM",lanes:["B","C"],cat:"games",ask:"ask",
+  w:"One of the two or three most active gaming investors, full stop. Fund 3 closed at $275M in 2024; ~159 portfolio companies and 19 deals in 2025."},
+ {n:"Makers Fund",hq:"Hong Kong / LA",st:"Seed",ck:"$500M indie initiative",lanes:["B","C"],cat:"games",ask:"ask",
+  w:"Highest-signal games fund for lane B: they're an investor in Pocket7Games / AviaGames, so they've already underwritten real-money skill gaming. 90+ portfolio companies."},
+ {n:"Play Ventures",hq:"Singapore",st:"Pre-seed / seed",ck:"~$450M AUM",lanes:["C"],cat:"games",ask:"ask",
+  w:"Mobile-first and genuinely global first checks — SEA, LatAm, CEE. Backed Wildlife Studios and Carry1st. Separate Future Fund for the pre-seed end."},
+ {n:"London Venture Partners (LVP)",hq:"London",st:"Seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",
+  w:"Games-only seed fund staffed entirely by games operators. The classic first-money-in for European studios."},
+ {n:"Konvoy",hq:"Denver · founded 2017",st:"Seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",
+  w:"Gaming and interactive entertainment, seed-focused. Publishes the sector research most other funds read."},
+ {n:"Sisu Game Ventures",hq:"Helsinki · founded 2014",st:"Pre-seed",ck:"$50M fund",lanes:["C"],cat:"games",ask:"ask",
+  w:"Explicitly wants pre-revenue, pre-product, first money in. Nordic mobile DNA, which means monetization-literate from the first meeting."},
+ {n:"The Games Fund (TGF)",hq:"Los Angeles · founded 2020",st:"Early stage",ck:"—",lanes:["C"],cat:"games",ask:"ask",
+  w:"Game developers, gaming technology and services at the early stage."},
+ {n:"F4 Fund",hq:"Los Angeles · founded 2023",st:"Pre-seed",ck:"$100K–$250K",lanes:["C"],cat:"games",ask:"ask",
+  w:"Backs founders coming out of the games industry to build consumer, social and AI products. High-touch and low-volume — good fit for a second-time games operator."},
+ {n:"Behold Ventures",hq:"United States",st:"Pre-seed / seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",
+  w:"Backs next-generation game entrepreneurs through a network of currently-shipping developers."},
+ {n:"Griffin Gaming Partners",hq:"Los Angeles",st:"Seed → growth",ck:"—",lanes:["C"],cat:"games",ask:"ask",unv:1,
+  w:"Larger gaming specialist that will lead a priced seed at the top end of the range."},
+ {n:"1Up Ventures",hq:"United States",st:"Pre-seed",ck:"Small first checks",lanes:["C"],cat:"games",ask:"ask",unv:1,
+  w:"Ed Fries' developer-first vehicle. Very early, very hands-on, small cheques."},
+ {n:"Vgames",hq:"Israel",st:"Seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",unv:1,
+  w:"Games-only early stage out of the market that produced Playtika, Moon Active and SciPlay — i.e. the deepest social-casino talent pool anywhere."},
+ {n:"Transcend Fund",hq:"United States",st:"Seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",unv:1,
+  w:"Small specialist gaming vehicle; useful for filling out a round rather than leading it."},
+ {n:"Hartmann Capital",hq:"United States",st:"Seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",unv:1,
+  w:"Gaming and digital-asset crossover fund. Relevant if your product touches crypto rails."},
+ {n:"Everblue Management",hq:"United States",st:"Seed",ck:"—",lanes:["C"],cat:"games",ask:"ask",unv:1,
+  w:"Operator-led gaming fund; small cheques, deep studio networks."},
+
+ {n:"a16z SPEEDRUN",hq:"Los Angeles · 12-week program",st:"Accelerator",ck:"$500K for 10% + $500K",lanes:["C"],cat:"program",ask:"ask",
+  w:"Born from a16z GAMES, now heavily AI and B2B — 87% of the SR006 cohort carried an AI tag. A consumer casino product is a stretch; a gaming-adjacent AI or infra story is strong. Chen, Lai, Kirwin, Lu.",u:"https://a16z.com/applications-for-a16z-speedrun-sr007-are-now-open/"},
+ {n:"Y Combinator",hq:"San Francisco · batch program",st:"Accelerator",ck:"Standard YC deal",lanes:["B"],cat:"program",ask:"ask",unv:1,
+  w:"Has funded prediction-market and skill-gaming companies. No explicit gambling ban, but expect the model to get scrutinized harder than a SaaS."},
+ {n:"Sector events (SBC, iGaming NEXT, ICE)",hq:"Lisbon / London / Barcelona",st:"Not capital",ck:"—",lanes:["A","B"],cat:"program",ask:"native",
+  w:"Not funds, but the highest-density rooms of gambling-native angels and corp-dev that exist. For lane A, one week here beats a month of cold outbound."},
+
+ {n:"Founders Fund",hq:"San Francisco",st:"Seed → growth",ck:"—",lanes:["A","B"],cat:"generalist",ask:"ask",
+  w:"The most consistently willing large fund in this space — Polymarket now, Betable historically. If any tier-one is cleared for real-money, it's this one."},
+ {n:"Greylock",hq:"Menlo Park",st:"Seed / Series A",ck:"—",lanes:["A"],cat:"generalist",ask:"ask",unv:1,
+  w:"Early Betable investor, so the precedent exists on paper. Treat as historical until you've confirmed current appetite."},
+ {n:"Prediction-market backers (Sequoia, Paradigm, Neo, 1789)",hq:"Various",st:"Seed → growth",ck:"—",lanes:["A"],cat:"generalist",ask:"ask",unv:1,
+  w:"Kalshi and Polymarket made event contracts the socially acceptable on-ramp to consumer real-money for tier-one funds. Frame accordingly, and only if it's true."},
+ {n:"NFX",hq:"San Francisco",st:"Seed",ck:"—",lanes:["C"],cat:"generalist",ask:"ask",
+  w:"Ranks among the most active gaming and esports seed investors. Their Signal tool is also the fastest way to find individual gaming partners at other funds.",u:"https://signal.nfx.com/investor-lists/top-gaming-esports-seed-investors"},
+ {n:"Goodwater Capital",hq:"Burlingame",st:"Seed / Series A",ck:"—",lanes:["C"],cat:"generalist",ask:"ask",unv:1,
+  w:"High-volume consumer seed fund with real depth in consumer behaviour data. Second wave, after the specialists."}
+];
+
+const CATS=[["all","all"],["rmg","gambling-native"],["games","games-native"],["generalist","generalist"],["program","programs"]];
+const LANES=["A","B","C"];
+const ASK_LABEL={native:"sector-native",ask:"ask re: LP clause"};
+let state={q:"",cat:"all",lanes:new Set(),starOnly:false};
+let stars=new Set();
+try{stars=new Set(JSON.parse(localStorage.getItem("egsm-stars")||"[]"));}catch(e){}
+function saveStars(){try{localStorage.setItem("egsm-stars",JSON.stringify([...stars]));}catch(e){}}
+
+const rowsEl=document.getElementById("rows");
+const countEl=document.getElementById("count");
+document.getElementById("fCount").textContent=FIRMS.length;
+
+const catWrap=document.getElementById("catChips");
+CATS.forEach(([id,label])=>{
+  const b=document.createElement("button");
+  b.className="chip";b.textContent=label;b.setAttribute("aria-pressed",id===state.cat);
+  b.onclick=()=>{state.cat=id;[...catWrap.children].forEach(c=>c.setAttribute("aria-pressed",c===b));render();};
+  catWrap.appendChild(b);
+});
+const laneWrap=document.getElementById("laneChips");
+LANES.forEach(l=>{
+  const b=document.createElement("button");
+  b.className="chip";b.textContent="lane "+l;b.setAttribute("aria-pressed","false");
+  b.onclick=()=>{state.lanes.has(l)?state.lanes.delete(l):state.lanes.add(l);b.setAttribute("aria-pressed",state.lanes.has(l));render();};
+  laneWrap.appendChild(b);
+});
+const starBtn=document.getElementById("starOnly");
+starBtn.onclick=()=>{state.starOnly=!state.starOnly;starBtn.setAttribute("aria-pressed",state.starOnly);render();};
+document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value.toLowerCase().trim();render();});
+
+function match(f){
+  if(state.cat!=="all"&&f.cat!==state.cat)return false;
+  if(state.lanes.size&&!f.lanes.some(l=>state.lanes.has(l)))return false;
+  if(state.starOnly&&!stars.has(f.n))return false;
+  if(state.q){
+    const hay=(f.n+" "+f.hq+" "+f.st+" "+f.ck+" "+f.w).toLowerCase();
+    if(!hay.includes(state.q))return false;
+  }
+  return true;
+}
+
+function render(){
+  const list=FIRMS.filter(match);
+  rowsEl.textContent="";
+  if(!list.length){
+    const d=document.createElement("div");d.className="empty";
+    d.textContent="No investors match those filters. Clear the search or widen the lane selection.";
+    rowsEl.appendChild(d);
+  }
+  list.forEach(f=>{
+    const row=document.createElement("div");row.className="firm";
+
+    const c1=document.createElement("div");
+    const nm=document.createElement("div");nm.className="name";
+    if(f.u){const a=document.createElement("a");a.href=f.u;a.target="_blank";a.rel="noopener";a.textContent=f.n;nm.appendChild(a);}
+    else nm.textContent=f.n;
+    const hq=document.createElement("span");hq.className="hq";hq.textContent=f.hq;
+    c1.append(nm,hq);
+
+    const c2=document.createElement("div");
+    const st=document.createElement("div");st.className="stage";st.textContent=f.st;
+    const ck=document.createElement("span");ck.className="check";ck.textContent=f.ck==="—"?"check size undisclosed":f.ck;
+    c2.append(st,ck);
+
+    const c3=document.createElement("div");
+    const why=document.createElement("div");why.className="why";why.textContent=f.w;
+    const tags=document.createElement("div");tags.className="tags";
+    f.lanes.forEach(l=>{const t=document.createElement("span");t.className="tag lane";t.textContent="LANE "+l;tags.appendChild(t);});
+    const at=document.createElement("span");at.className="tag "+(f.ask==="native"?"native":"ask");at.textContent=ASK_LABEL[f.ask];tags.appendChild(at);
+    if(f.unv){const t=document.createElement("span");t.className="tag unver";t.textContent="unverified";tags.appendChild(t);}
+    c3.append(why,tags);
+
+    const sb=document.createElement("button");
+    sb.className="star";sb.type="button";
+    sb.setAttribute("aria-pressed",stars.has(f.n));
+    sb.setAttribute("aria-label","Shortlist "+f.n);
+    sb.textContent=stars.has(f.n)?"★":"☆";
+    sb.onclick=()=>{stars.has(f.n)?stars.delete(f.n):stars.add(f.n);saveStars();render();};
+
+    row.append(c1,c2,c3,sb);
+    rowsEl.appendChild(row);
+  });
+  countEl.textContent=list.length+" of "+FIRMS.length+(stars.size?" · "+stars.size+" shortlisted":"");
+}
+render();
+</script>
