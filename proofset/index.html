@@ -1,0 +1,791 @@
+<title>Proofset</title>
+<meta name="description" content="Where eCommerce software gets proven. Proofset connects emerging eCommerce software with experienced operators for real-world testing, useful feedback, and early customer discovery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#F4F3EE;
+    --card:#FFFFFF;
+    --ink:#141A17;
+    --muted:#5E645F;
+    --line:#DFDCD3;
+    --line-soft:#E9E7E0;
+    --accent:#0B5C42;
+    --accent-deep:#084430;
+    --wash:#E7EDE8;
+    --sans:"Geist","Geist Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --maxw:1200px;
+    --pad:24px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:18px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--wash);color:var(--accent-deep)}
+  a{color:inherit}
+  h1,h2,h3,h4,p,ul,ol,figure,blockquote{margin:0}
+  ul{padding:0;list-style:none}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+  /* ---------- primitives ---------- */
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+  .section{padding-block:clamp(64px,9vw,116px);border-top:1px solid var(--line)}
+  .section--flush{border-top:0}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 20px
+  }
+  .eyebrow--muted{color:var(--muted)}
+  h1,h2{letter-spacing:-.028em;font-weight:600;text-wrap:balance;line-height:1.06}
+  h1{font-size:clamp(40px,5.4vw,62px)}
+  h2{font-size:clamp(30px,3.6vw,42px)}
+  h3{font-size:19px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+  .lede{font-size:clamp(18px,1.5vw,20px);color:var(--muted);max-width:660px;margin-top:22px}
+  .note{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.01em}
+  .measure{max-width:680px}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--accent);color:#fff;border:1px solid var(--accent);
+    padding:15px 26px;border-radius:4px;font-size:17px;font-weight:500;
+    cursor:pointer;text-decoration:none;transition:background .15s ease,transform .15s ease;
+  }
+  .btn:hover{background:var(--accent-deep)}
+  .btn:active{transform:translateY(1px)}
+  .btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn--ghost:hover{background:var(--card);border-color:var(--ink)}
+  .btn--sm{padding:10px 18px;font-size:15px;border-radius:3px}
+  .btn--wide{width:100%}
+
+  .tag{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.01em;color:var(--muted);
+    border:1px solid var(--line);border-radius:3px;padding:4px 9px;white-space:nowrap;background:var(--paper)
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px}
+
+  .rail{display:grid;grid-template-columns:180px 1fr;gap:clamp(24px,4vw,64px);align-items:start}
+  @media (max-width:820px){.rail{grid-template-columns:1fr;gap:28px}}
+
+  /* ---------- header ---------- */
+  .site-head{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .site-head__in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px}
+  .logo{display:inline-flex;align-items:baseline;gap:9px;text-decoration:none;font-weight:600;letter-spacing:-.02em;font-size:19px}
+  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+  .head-right{display:flex;align-items:center;gap:20px}
+  .head-link{font-size:15px;color:var(--muted);text-decoration:none}
+  .head-link:hover{color:var(--ink)}
+  @media (max-width:560px){.head-link{display:none}}
+
+  /* ---------- router ---------- */
+  .router{padding-block:clamp(56px,10vw,104px)}
+  .router h1{max-width:19ch}
+  .routes{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:clamp(48px,7vw,80px);border-top:1px solid var(--line)}
+  .route{padding:36px 0;border-bottom:1px solid var(--line)}
+  .route + .route{border-left:1px solid var(--line);padding-left:clamp(28px,4vw,56px)}
+  .routes .route:first-child{padding-right:clamp(28px,4vw,56px)}
+  .route h2{font-size:clamp(24px,2.4vw,30px);margin-top:12px;max-width:16ch}
+  .route p{color:var(--muted);font-size:17px;margin-top:14px;max-width:38ch}
+  .route .btn{margin-top:26px}
+  @media (max-width:760px){
+    .routes{grid-template-columns:1fr}
+    .route + .route{border-left:0;padding-left:0}
+    .routes .route:first-child{padding-right:0}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding-block:clamp(52px,7vw,88px)}
+  .hero__grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(32px,5vw,72px);align-items:start}
+  @media (max-width:940px){.hero__grid{grid-template-columns:1fr}}
+  .hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:34px}
+  .hero__helper{margin-top:14px;max-width:42ch}
+  .catline{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.02em}
+
+  /* proof brief visual */
+  .brief{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .brief__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--paper)}
+  .brief__label{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .brief__body{padding:22px 20px}
+  .brief__product{font-size:20px;font-weight:600;letter-spacing:-.015em}
+  .brief__sub{color:var(--muted);font-size:15.5px;margin-top:6px}
+  .brief__crit{margin-top:20px}
+  .crit-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .arrow-row{display:flex;align-items:center;gap:12px;padding:0 20px}
+  .arrow-row span{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+  .arrow-row .line{flex:1;height:1px;background:var(--line)}
+  .matches{padding:14px 20px 22px}
+  .match{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .match:last-child{border-bottom:0}
+  .match strong{font-weight:500;font-size:16px}
+  .match span{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-align:right}
+  .caption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px}
+
+  /* invitation card (operators hero) */
+  .invite__head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--paper)}
+  .pip{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+  .invite__foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;border-top:1px solid var(--line-soft);background:var(--paper)}
+  .invite__acts{display:flex;gap:10px}
+
+  /* ---------- pillars ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:52px;border-top:1px solid var(--line)}
+  .pillars--four{grid-template-columns:repeat(4,1fr)}
+  .pillar{padding:26px clamp(18px,2.2vw,32px) 30px 0;border-bottom:1px solid var(--line)}
+  .pillar + .pillar{border-left:1px solid var(--line);padding-left:clamp(18px,2.2vw,32px)}
+  .pillar__n{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:16px}
+  .pillar p{color:var(--muted);font-size:16.5px;margin-top:10px}
+  @media (max-width:860px){
+    .pillars,.pillars--four{grid-template-columns:1fr}
+    .pillar + .pillar{border-left:0;padding-left:0}
+    .pillar{padding-right:0}
+  }
+
+  /* ---------- steps ---------- */
+  .steps{margin-top:46px;border-top:1px solid var(--line)}
+  .step{display:grid;grid-template-columns:64px minmax(0,320px) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line)}
+  .step__n{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.06em}
+  .step p{color:var(--muted);font-size:16.5px}
+  @media (max-width:760px){
+    .step{grid-template-columns:40px 1fr;gap:10px 16px}
+    .step p{grid-column:2}
+  }
+  .flowline{font-family:var(--mono);font-size:13.5px;color:var(--muted);margin-top:24px;letter-spacing:.01em}
+
+  /* ---------- profile / opportunity grids ---------- */
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+  .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
+  @media (max-width:900px){.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:620px){.grid3,.grid2{grid-template-columns:1fr}}
+  .profile{display:flex;flex-direction:column;gap:10px;transition:border-color .15s ease}
+  .profile:hover{border-color:#C9C5BA}
+  .profile__role{font-size:17px;font-weight:600;letter-spacing:-.01em}
+  .profile__meta{font-size:15.5px;color:var(--muted)}
+  .opp{display:flex;flex-direction:column;gap:12px;transition:border-color .15s ease}
+  .opp:hover{border-color:#C9C5BA}
+  .opp__cat{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .opp__title{font-size:18px;font-weight:600;letter-spacing:-.015em}
+  .opp__row{display:flex;gap:10px;font-size:15px;color:var(--muted);border-top:1px solid var(--line-soft);padding-top:10px}
+  .opp__row b{font-weight:400;color:var(--ink);min-width:86px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+
+  /* ---------- trust list ---------- */
+  .checks{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
+  .checks li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:16.5px}
+  .checks li::before{content:"";width:6px;height:6px;margin-top:11px;border-radius:1px;background:var(--accent);flex:none}
+  @media (max-width:620px){.checks{grid-template-columns:1fr}}
+
+  /* ---------- chips ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+  .chip{border:1px solid var(--line);background:var(--card);border-radius:100px;padding:7px 15px;font-size:15px}
+
+  /* ---------- pull quote ---------- */
+  .quote{padding-block:clamp(56px,8vw,92px);border-top:1px solid var(--line)}
+  .quote h2{font-size:clamp(34px,4.6vw,54px)}
+  .quote p{color:var(--muted);margin-top:18px;max-width:52ch;font-size:19px}
+
+  /* ---------- final cta ---------- */
+  .final{background:var(--ink);color:var(--paper);border-radius:8px;padding:clamp(36px,5vw,64px);margin-block:clamp(56px,8vw,96px)}
+  .final h2{max-width:18ch}
+  .final p{color:#B6BDB6;margin-top:18px;max-width:50ch;font-size:18px}
+  .final .btn{margin-top:32px;background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .final .btn:hover{background:#fff;border-color:#fff}
+  .final .note{color:#9AA39B;display:block;margin-top:16px}
+
+  /* ---------- footer ---------- */
+  .site-foot{border-top:1px solid var(--line);padding-block:36px 56px}
+  .foot-row{display:flex;flex-wrap:wrap;gap:18px;align-items:baseline;justify-content:space-between}
+  .foot-cross{font-size:16px;color:var(--muted)}
+  .foot-cross a{color:var(--ink);text-underline-offset:3px}
+  .foot-brand{font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:var(--muted)}
+
+  /* ---------- modal ---------- */
+  .modal{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-start;justify-content:center;padding:clamp(16px,5vh,64px) 16px;overflow-y:auto;background:rgba(20,26,23,.42)}
+  .modal[hidden]{display:none}
+  .sheet{background:var(--paper);border-radius:8px;width:100%;max-width:560px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(20,26,23,.18)}
+  .sheet__head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 0}
+  .sheet__head h3{font-size:24px;letter-spacing:-.02em}
+  .sheet__body{padding:18px 24px 24px}
+  .field{display:block;margin-bottom:16px}
+  .field > span{display:block;font-size:14.5px;color:var(--muted);margin-bottom:7px}
+  .field input,.field textarea,.field select{
+    width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:4px;background:var(--card);
+    font-family:var(--sans);font-size:16px;color:var(--ink)
+  }
+  .field textarea{min-height:86px;resize:vertical}
+  .x{background:none;border:0;cursor:pointer;font-size:22px;line-height:1;color:var(--muted);padding:4px}
+  .x:hover{color:var(--ink)}
+  .done{padding:40px 24px 44px;text-align:left}
+  .done h3{font-size:24px;letter-spacing:-.02em}
+  .done p{color:var(--muted);margin-top:12px}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  [hidden]{display:none!important}
+</style>
+
+<header class="site-head">
+  <div class="wrap site-head__in">
+    <a class="logo" href="#/" data-nav><span class="dot"></span>Proofset</a>
+    <div class="head-right">
+      <a class="head-link" id="crossNav" href="#/operators" data-nav>For operators</a>
+      <button class="btn btn--sm" id="navCta" type="button" data-open="companies">Get my product tested</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ============ ROUTER ============ -->
+  <section class="page" data-page="router">
+    <div class="wrap router">
+      <p class="eyebrow">Private beta · eCommerce</p>
+      <h1>Where eCommerce software gets proven.</h1>
+      <p class="lede">Proofset connects emerging eCommerce software with experienced operators for real-world testing, useful feedback, and early customer discovery.</p>
+
+      <div class="routes">
+        <div class="route">
+          <p class="eyebrow eyebrow--muted">Building eCommerce software?</p>
+          <h2>Get your product in front of the right operators.</h2>
+          <p>Find qualified operators to trial what you're building, pressure-test your ICP, and surface potential design partners.</p>
+          <a class="btn" href="#/companies" data-nav>Get my product tested</a>
+        </div>
+        <div class="route">
+          <p class="eyebrow eyebrow--muted">Work in eCommerce?</p>
+          <h2>Get early access to emerging tools worth trying.</h2>
+          <p>Test promising new software before broader launch, and tell the founders what actually works in a real workflow.</p>
+          <a class="btn btn--ghost" href="#/operators" data-nav>Join the operator network</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPANIES ============ -->
+  <section class="page" data-page="companies" hidden>
+    <div class="wrap hero">
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">For eCommerce software companies</p>
+          <h1>Test your product with the operators who actually matter.</h1>
+          <p class="lede">Find qualified eCommerce operators to trial your product, pressure-test your ICP, and surface potential design partners and customers.</p>
+          <div class="hero__cta">
+            <button class="btn" type="button" data-open="companies">Get my product tested</button>
+          </div>
+          <p class="note hero__helper">Tell us what you're building. We'll help define who should test it.</p>
+          <p class="catline">AI Creative · Paid Media · Email &amp; SMS · CRO · Analytics · Commerce</p>
+        </div>
+
+        <div>
+          <div class="brief">
+            <div class="brief__head">
+              <span class="brief__label">Proof brief</span>
+              <span class="brief__label">Example</span>
+            </div>
+            <div class="brief__body">
+              <p class="brief__product">AI creative testing platform</p>
+              <p class="brief__sub">Helps performance teams generate and evaluate ad creative.</p>
+              <div class="brief__crit">
+                <p class="crit-label">Looking for</p>
+                <div class="tags">
+                  <span class="tag">Paid Social</span>
+                  <span class="tag">DTC</span>
+                  <span class="tag">$5M–$100M GMV</span>
+                  <span class="tag">Meta-heavy</span>
+                  <span class="tag">Director+</span>
+                  <span class="tag">US</span>
+                </div>
+              </div>
+            </div>
+            <div class="arrow-row"><span>Matched operators</span><span class="line"></span></div>
+            <div class="matches">
+              <div class="match"><strong>VP Growth</strong><span>Beauty · $40M GMV</span></div>
+              <div class="match"><strong>Head of Paid Social</strong><span>Apparel · Meta + TikTok</span></div>
+              <div class="match"><strong>Creative Strategy Director</strong><span>Consumer agency</span></div>
+              <div class="match"><strong>Director of Growth</strong><span>Subscription commerce</span></div>
+              <div class="match"><strong>Ecommerce Director</strong><span>Mid-market retail</span></div>
+            </div>
+          </div>
+          <p class="caption">Example matching scenario. Not live members.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">The reframe</p>
+        <div>
+          <h2>You do not need more generic feedback.</h2>
+          <p class="lede">You need a small number of credible operators who understand the problem, can actually use the product, and can tell you whether it belongs in the market.</p>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar__n">01</span>
+          <h3>The right people</h3>
+          <p>Operators matched against role, company, workflow, scale, and purchasing influence, not generic research participants.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">02</span>
+          <h3>Real product usage</h3>
+          <p>Go beyond interviews. Get your product demoed, trialed, or used inside real workflows.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">03</span>
+          <h3>Feedback with commercial signal</h3>
+          <p>Learn what works, what does not, and which participants have enough conviction to become design partners, champions, or customers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">How a Proof works</p>
+        <div>
+          <h2>From product hypothesis to real-world proof.</h2>
+          <p class="lede">Five steps from the thing you're building to evidence you can act on.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="step__n">01</span><h3>Show us what you're building</h3><p>Share a URL, deck, product brief, or short description.</p></div>
+        <div class="step"><span class="step__n">02</span><h3>Define who matters</h3><p>Tell us who you think should test it. We'll sharpen the profile with you.</p></div>
+        <div class="step"><span class="step__n">03</span><h3>We source and qualify</h3><p>Proofset finds and recruits operators who actually fit the brief.</p></div>
+        <div class="step"><span class="step__n">04</span><h3>They test the product</h3><p>Run a demo, trial, or real-world workflow test depending on what you need to prove.</p></div>
+        <div class="step"><span class="step__n">05</span><h3>You get the evidence</h3><p>See what resonated, what broke, what changed, and who wants to continue.</p></div>
+      </div>
+      <p class="flowline">Show us → We match → They test → You learn → Keep the strongest relationships</p>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">Example profiles</p>
+        <div>
+          <h2>Test with people who actually do the job.</h2>
+          <p class="lede">Tell us the role, company type, experience, and context that matter. Proofset recruits operators who fit the profile.</p>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card profile">
+          <p class="profile__role">VP Growth</p>
+          <p class="profile__meta">DTC beauty brand</p>
+          <div class="tags"><span class="tag">Shopify Plus</span><span class="tag">Meta + TikTok</span></div>
+        </div>
+        <div class="card profile">
+          <p class="profile__role">Director, Paid Social</p>
+          <p class="profile__meta">Consumer agency</p>
+          <div class="tags"><span class="tag">$20M+ managed spend</span></div>
+        </div>
+        <div class="card profile">
+          <p class="profile__role">Head of Lifecycle</p>
+          <p class="profile__meta">DTC apparel</p>
+          <div class="tags"><span class="tag">Klaviyo</span><span class="tag">Attentive</span></div>
+        </div>
+        <div class="card profile">
+          <p class="profile__role">Ecommerce Director</p>
+          <p class="profile__meta">Mid-market retail</p>
+          <div class="tags"><span class="tag">Shopify Plus</span></div>
+        </div>
+        <div class="card profile">
+          <p class="profile__role">Creative Strategy Lead</p>
+          <p class="profile__meta">Performance agency</p>
+          <div class="tags"><span class="tag">Meta creative testing</span></div>
+        </div>
+        <div class="card profile">
+          <p class="profile__role">Founder / Operator</p>
+          <p class="profile__meta">Growing Shopify brand</p>
+          <div class="tags"><span class="tag">Hands-on buyer</span></div>
+        </div>
+      </div>
+      <p class="caption">Example profiles. Matching criteria can include role, company type, company size, geography, tech stack, spend, seniority, and specific experience.</p>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">Quality</p>
+        <div>
+          <h2>Not a panel. Not a list of names.</h2>
+          <p class="lede">Proofset qualifies participants against the things that actually matter: what they own, how they work, the scale they operate at, and whether they can influence adoption.</p>
+          <ul class="checks">
+            <li>Relevant role</li>
+            <li>Real workflow ownership</li>
+            <li>Channel or budget responsibility</li>
+            <li>Company fit</li>
+            <li>Ability to trial new tools</li>
+            <li>Champion or purchasing influence</li>
+          </ul>
+          <p class="note" style="margin-top:22px">We're onboarding a small number of eCommerce software companies for the founding Proofset cohort.</p>
+        </div>
+      </div>
+      <div class="rail" style="margin-top:clamp(48px,6vw,72px)">
+        <p class="eyebrow">Categories</p>
+        <div>
+          <h2 style="font-size:clamp(24px,2.6vw,32px)">Built for the new eCommerce software stack.</h2>
+          <div class="chips">
+            <span class="chip">Creative AI</span>
+            <span class="chip">Paid Media &amp; Optimization</span>
+            <span class="chip">Email &amp; SMS</span>
+            <span class="chip">Lifecycle &amp; Retention</span>
+            <span class="chip">CRO &amp; Personalization</span>
+            <span class="chip">Analytics &amp; Attribution</span>
+            <span class="chip">Commerce Operations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap quote">
+      <h2>Find your first five.</h2>
+      <p>Five operators who understand the problem, can use the product, and might actually become customers.</p>
+    </div>
+
+    <div class="wrap">
+      <div class="final">
+        <h2>Put your product in the hands of the people who matter.</h2>
+        <p>Tell us what you're building and who you think should test it. We'll help turn that into a Proof.</p>
+        <button class="btn" type="button" data-open="companies">Get my product tested</button>
+        <span class="note">Short intake. No account required.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OPERATORS ============ -->
+  <section class="page" data-page="operators" hidden>
+    <div class="wrap hero">
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">For eCommerce operators</p>
+          <h1>Test what's next in eCommerce software.</h1>
+          <p class="lede">Get early access to promising tools across creative, paid media, lifecycle, CRO, analytics, and commerce, and help shape the products you may use next.</p>
+          <div class="hero__cta">
+            <button class="btn" type="button" data-open="operators">Join the operator network</button>
+          </div>
+          <p class="note hero__helper">Apply in about 2 minutes. Founding eCommerce cohort now open.</p>
+          <p class="catline">Creative AI · Paid Media · Email &amp; SMS · Lifecycle · CRO · Analytics · Commerce Ops</p>
+        </div>
+
+        <div>
+          <div class="brief">
+            <div class="invite__head">
+              <span class="pip"></span>
+              <span class="brief__label">Invitation · AI Creative</span>
+            </div>
+            <div class="brief__body">
+              <p class="brief__product">Test a new ad creative workflow</p>
+              <p class="brief__sub">An emerging tool for teams running high creative velocity on Meta. Direct access to the founding team.</p>
+              <div class="brief__crit">
+                <p class="crit-label">Why you</p>
+                <div class="tags">
+                  <span class="tag">Paid Social</span>
+                  <span class="tag">DTC</span>
+                  <span class="tag">Meta</span>
+                  <span class="tag">Creative testing</span>
+                </div>
+              </div>
+              <div class="brief__crit">
+                <p class="crit-label">Format</p>
+                <p style="font-size:16px;color:var(--muted)">Short demo, then trial it on one real creative cycle. About 30 minutes.</p>
+              </div>
+            </div>
+            <div class="invite__foot">
+              <span class="note">No obligation</span>
+              <span class="invite__acts">
+                <span class="btn btn--sm btn--ghost" aria-hidden="true">Pass</span>
+                <span class="btn btn--sm" aria-hidden="true">Try it</span>
+              </span>
+            </div>
+          </div>
+          <p class="caption">Example invitation. You choose what you want to test.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">Why join</p>
+        <div>
+          <h2>Your experience should influence what gets built.</h2>
+          <p class="lede">The best operators should see the best tools first. Proofset curates emerging eCommerce software and puts relevant products in front of experienced operators before broader launch.</p>
+        </div>
+      </div>
+      <div class="pillars pillars--four">
+        <div class="pillar">
+          <span class="pillar__n">01</span>
+          <h3>Get early access</h3>
+          <p>Try emerging products before they are widely available.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">02</span>
+          <h3>Shape what gets built</h3>
+          <p>Give founders and product teams direct feedback that can materially influence the roadmap.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">03</span>
+          <h3>Find an edge</h3>
+          <p>Discover software that may improve how you run creative, acquisition, retention, conversion, or commerce operations.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">04</span>
+          <h3>Get rewarded</h3>
+          <p>Selected Proofs may include compensation, product credits, private events, or extended product access.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">Curation</p>
+        <div>
+          <h2>No demo spam.</h2>
+          <p class="lede">We match you only with products relevant to the work you actually do. You choose what you want to test.</p>
+          <ul class="checks">
+            <li>Relevant categories only</li>
+            <li>Selective invitations</li>
+            <li>No obligation to participate</li>
+            <li>Direct founder and product access</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rail" style="margin-top:clamp(48px,6vw,80px)">
+        <p class="eyebrow">Example opportunities</p>
+        <div>
+          <h2 style="font-size:clamp(26px,2.8vw,34px)">Only opportunities that fit your experience.</h2>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card opp">
+          <p class="opp__cat">AI Creative</p>
+          <p class="opp__title">AI creative platform</p>
+          <div class="opp__row"><b>Looking&nbsp;for</b><span>Paid social leaders at DTC brands</span></div>
+          <div class="opp__row"><b>You'd do</b><span>Try a new creative testing workflow and give product feedback</span></div>
+          <div class="opp__row"><b>Format</b><span>30-minute product test + feedback</span></div>
+        </div>
+        <div class="card opp">
+          <p class="opp__cat">Lifecycle</p>
+          <p class="opp__title">Lifecycle marketing tool</p>
+          <div class="opp__row"><b>Looking&nbsp;for</b><span>Klaviyo / Attentive operators</span></div>
+          <div class="opp__row"><b>You'd do</b><span>Evaluate a new campaign planning workflow</span></div>
+          <div class="opp__row"><b>Format</b><span>Product walkthrough + feedback call</span></div>
+        </div>
+        <div class="card opp">
+          <p class="opp__cat">Analytics</p>
+          <p class="opp__title">Commerce analytics startup</p>
+          <div class="opp__row"><b>Looking&nbsp;for</b><span>Heads of Growth / Ecommerce</span></div>
+          <div class="opp__row"><b>You'd do</b><span>Review a new attribution experience and identify what's missing</span></div>
+          <div class="opp__row"><b>Format</b><span>Prototype test + discussion</span></div>
+        </div>
+      </div>
+      <p class="caption">Example opportunities, not currently live.</p>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">How it works</p>
+        <div>
+          <h2>Join once. Test selectively.</h2>
+          <p class="lede">We're intentionally keeping the first cohort curated while we refine matching quality.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="step__n">01</span><h3>Tell us what you actually work on</h3><p>Share your role, channels, workflows, tools, and areas of responsibility.</p></div>
+        <div class="step"><span class="step__n">02</span><h3>We match you selectively</h3><p>Proofset sends you products that are genuinely relevant to your work.</p></div>
+        <div class="step"><span class="step__n">03</span><h3>You decide what to try</h3><p>No obligation to participate in every Proof.</p></div>
+        <div class="step"><span class="step__n">04</span><h3>Test the product</h3><p>Join a demo, run a trial, or use the tool in a real workflow.</p></div>
+        <div class="step"><span class="step__n">05</span><h3>Give direct feedback</h3><p>Tell the founders what worked, what didn't, and whether you'd keep using it.</p></div>
+      </div>
+      <p class="flowline">If the product is useful, the relationship can continue beyond the Proof.</p>
+    </div>
+
+    <div class="wrap section">
+      <div class="rail">
+        <p class="eyebrow">Who should join</p>
+        <div>
+          <h2>Built for people who actually operate the stack.</h2>
+          <div class="chips">
+            <span class="chip">Heads of Growth</span>
+            <span class="chip">Performance Marketers</span>
+            <span class="chip">Paid Social Leads</span>
+            <span class="chip">Creative Strategists</span>
+            <span class="chip">Creative Producers</span>
+            <span class="chip">Lifecycle / CRM Leaders</span>
+            <span class="chip">Email &amp; SMS Marketers</span>
+            <span class="chip">CRO Leaders</span>
+            <span class="chip">eCommerce Leaders</span>
+            <span class="chip">Analytics / Attribution Leads</span>
+            <span class="chip">Agency Operators</span>
+          </div>
+          <p class="lede" style="margin-top:26px">If you actively own a channel, workflow, budget, or commercial outcome, we want to hear from you.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="final">
+        <h2>See what's next before everyone else.</h2>
+        <p>Join the Proofset operator network and get matched with emerging products relevant to the work you actually do.</p>
+        <button class="btn" type="button" data-open="operators">Join the operator network</button>
+        <span class="note">Short application. We'll reach out when there's a relevant fit.</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p class="foot-brand">Proofset · Where eCommerce software gets proven.</p>
+    <p class="foot-cross" id="footCross"></p>
+  </div>
+</footer>
+
+<!-- ============ INTAKE ============ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet">
+    <div class="sheet__head">
+      <h3 id="sheetTitle">Show us what you're building.</h3>
+      <button class="x" type="button" id="closeModal" aria-label="Close">&times;</button>
+    </div>
+
+    <form class="sheet__body" id="intakeCompanies">
+      <label class="field" for="c-url"><span>Product URL</span><input id="c-url" type="url" placeholder="https://" autocomplete="url"></label>
+      <label class="field" for="c-what"><span>What are you building?</span><textarea id="c-what" placeholder="A short description, or paste from a deck."></textarea></label>
+      <label class="field" for="c-who"><span>Who should test it?</span><textarea id="c-who" placeholder="e.g. five performance marketers at DTC brands spending $100K+/month on Meta."></textarea></label>
+      <label class="field" for="c-prove"><span>What are you trying to prove?</span>
+        <select id="c-prove">
+          <option>Problem / concept</option>
+          <option>Early product</option>
+          <option>Existing product or feature</option>
+          <option>ICP</option>
+          <option>New market or segment</option>
+          <option>Design partners</option>
+          <option>Early customers</option>
+        </select>
+      </label>
+      <label class="field" for="c-email"><span>Work email</span><input id="c-email" type="email" placeholder="you@company.com" autocomplete="email"></label>
+      <button class="btn btn--wide" type="submit">Start a Proof brief</button>
+      <p class="note" style="margin-top:14px">Preview only — nothing is submitted.</p>
+    </form>
+
+    <form class="sheet__body" id="intakeOperators" hidden>
+      <label class="field" for="o-name"><span>Name</span><input id="o-name" type="text" autocomplete="name"></label>
+      <label class="field" for="o-email"><span>Work email</span><input id="o-email" type="email" placeholder="you@brand.com" autocomplete="email"></label>
+      <label class="field" for="o-role"><span>Role and company</span><input id="o-role" type="text" placeholder="Head of Growth, DTC beauty brand"></label>
+      <label class="field" for="o-own"><span>What do you own?</span><textarea id="o-own" placeholder="Channels, workflows, budget, tools."></textarea></label>
+      <label class="field" for="o-li"><span>LinkedIn</span><input id="o-li" type="url" placeholder="linkedin.com/in/"></label>
+      <button class="btn btn--wide" type="submit">Apply to the operator network</button>
+      <p class="note" style="margin-top:14px">Preview only — nothing is submitted.</p>
+    </form>
+
+    <div class="done" id="intakeDone" hidden>
+      <h3>That's everything we need to start.</h3>
+      <p id="doneCopy"></p>
+      <button class="btn" type="button" id="doneClose" style="margin-top:24px">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var navCta = document.getElementById('navCta');
+  var crossNav = document.getElementById('crossNav');
+  var footCross = document.getElementById('footCross');
+
+  var CONFIG = {
+    router: {
+      title: 'Proofset',
+      crossLabel: 'For operators', crossHref: '#/operators',
+      cta: 'Get my product tested', ctaAudience: 'companies',
+      foot: '<a href="#/companies" data-nav>For software companies</a> · <a href="#/operators" data-nav>For operators</a>'
+    },
+    companies: {
+      title: 'Proofset — Find eCommerce Operators to Test Your Product',
+      crossLabel: 'For operators', crossHref: '#/operators',
+      cta: 'Get my product tested', ctaAudience: 'companies',
+      foot: 'Work in eCommerce instead? <a href="#/operators" data-nav>Join the operator network</a>.'
+    },
+    operators: {
+      title: 'Proofset — Test Emerging eCommerce Software',
+      crossLabel: 'For software', crossHref: '#/companies',
+      cta: 'Join the operator network', ctaAudience: 'operators',
+      foot: 'Building software? <a href="#/companies" data-nav>Get your product tested</a>.'
+    }
+  };
+
+  function routeName() {
+    var h = (location.hash || '').replace('#/', '');
+    return CONFIG[h] ? h : 'router';
+  }
+
+  function render(scroll) {
+    var name = routeName(), cfg = CONFIG[name];
+    pages.forEach(function (p) { p.hidden = p.getAttribute('data-page') !== name; });
+    document.title = cfg.title;
+    crossNav.textContent = cfg.crossLabel;
+    crossNav.setAttribute('href', cfg.crossHref);
+    navCta.textContent = cfg.cta;
+    navCta.setAttribute('data-open', cfg.ctaAudience);
+    footCross.innerHTML = cfg.foot;
+    if (scroll) window.scrollTo(0, 0);
+  }
+
+  window.addEventListener('hashchange', function () { render(true); });
+  render(false);
+
+  /* ---- intake modal ---- */
+  var modal = document.getElementById('modal');
+  var sheetTitle = document.getElementById('sheetTitle');
+  var formC = document.getElementById('intakeCompanies');
+  var formO = document.getElementById('intakeOperators');
+  var done = document.getElementById('intakeDone');
+  var doneCopy = document.getElementById('doneCopy');
+  var lastFocus = null;
+
+  function openModal(audience) {
+    lastFocus = document.activeElement;
+    var isCompany = audience === 'companies';
+    sheetTitle.textContent = isCompany ? "Show us what you're building." : 'Tell us what you actually work on.';
+    formC.hidden = !isCompany;
+    formO.hidden = isCompany;
+    done.hidden = true;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var first = (isCompany ? formC : formO).querySelector('input, textarea, select');
+    if (first) first.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var opener = e.target.closest('[data-open]');
+    if (opener) { openModal(opener.getAttribute('data-open')); return; }
+    if (e.target === modal) closeModal();
+  });
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+  document.getElementById('doneClose').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  function submitted(title, copy) {
+    return function (e) {
+      e.preventDefault();
+      formC.hidden = true; formO.hidden = true;
+      doneCopy.textContent = copy;
+      done.hidden = false;
+      sheetTitle.textContent = title;
+      document.getElementById('doneClose').focus();
+    };
+  }
+  formC.addEventListener('submit', submitted('Proof brief received', "We'll sharpen the operator profile with you and come back with who we think should test it. This is a preview — nothing was sent."));
+  formO.addEventListener('submit', submitted('Application received', "We'll review your background and reach out when there's a relevant fit. This is a preview — nothing was sent."));
+})();
+</script>
